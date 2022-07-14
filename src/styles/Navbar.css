@@ -1,0 +1,46 @@
+nav{
+    height: 25px;  
+}
+.grid_navbar{
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    justify-content: flex-end;
+}
+li{
+    list-style: none;
+    font-weight: bold;
+    margin-right: 30px;
+    height: auto;
+}
+li .item_link{
+    text-decoration: none;
+    color: black;
+    pointer-events: auto
+}
+
+li .item_link:hover{
+    text-decoration: none;
+    color: blue;
+    height: 25px;
+}
+#home_li{
+    position: absolute;
+    margin-left: 10%;  
+    pointer-events: auto;
+}
+
+@media screen and (max-width: 960px){
+    .grid_navbar{
+        display: none !important;
+    }
+    .item_link{
+        display: none !important;
+    }
+
+    #home_li{
+        margin-left: 45%;
+        margin-top: 20px;
+    }
+}
+

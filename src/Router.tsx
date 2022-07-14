@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Skeleton from './views/Skeleton';
 
 //Views =>
+//import SignUp from './views/SignUp';
 import PageHome from './pages/PageHome';
 
 
