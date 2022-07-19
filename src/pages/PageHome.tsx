@@ -1,6 +1,6 @@
 import React from 'react'
 
-import MenuNav from '../views/MenuNav';
+import MenuNav from '../views/home_view/Nav/MenuNav';
 
 const PageHome = () => {
     return(
