@@ -1,8 +1,7 @@
 import React from 'react';
 
-
 //Router =>
-import Router from './Router';
+import Router from './navigation/Router';
 
 function App() {
   return (

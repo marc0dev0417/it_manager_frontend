@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Navbar from '../views/Navbar';
+import MenuNav from '../views/MenuNav';
 
 const PageHome = () => {
     return(
         <div>
-            <Navbar/>
+            <MenuNav/>
         </div>
     )
 }

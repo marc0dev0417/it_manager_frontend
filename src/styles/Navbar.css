@@ -23,6 +23,7 @@ li .item_link:hover{
     text-decoration: none;
     color: blue;
     height: 25px;
+    border-bottom: 1px solid black;
 }
 #home_li{
     position: absolute;
