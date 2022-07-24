@@ -1,15 +1,21 @@
 p{
-    font-size: 15px;
+    font-size: 16px;
   }
   #container_login{
+    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
   }
+ 
   #container_content{
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.70) 0px 5px 15px;
     padding: 20px;
-    height: 320px;
+    height: 350px;
   }
   #container_input{
     display: flex;
@@ -21,6 +27,9 @@ p{
   }
   input{
     height: 30px;
+  }
+  img{
+    width: 35%;
   }
   #button_signin{
     border: 1px solid black;
