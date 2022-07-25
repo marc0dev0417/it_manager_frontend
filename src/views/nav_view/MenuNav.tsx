@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom"
 
 //Styles =>
-import "../../../styles/Navbar.css"
-import "../../../styles/SideNav.css"
+import "./nav_style/navbar.css"
+import "./nav_style/sideNav.css"
 
-import CounterStore from "../../../viewmodels/CounterStore";
+import CounterStore from "../../viewmodels/CounterStore";
 
 const MenuNav = () => {
 

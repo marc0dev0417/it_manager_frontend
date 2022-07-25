@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ViewComponent = {
-    view: JSX.Element
+    view?: JSX.Element
 }
 
 const Skeleton = (prop: ViewComponent) => {

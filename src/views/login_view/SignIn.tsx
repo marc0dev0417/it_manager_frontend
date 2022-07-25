@@ -1,12 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './login_style/login.css'
-import { User } from '../../models/User'
 
 //image =>
  import logoTask from '../../util/task_image.svg'
 
 const SignIn = () => {
+
+   const navigate = useNavigate()
+
    return (
       <div id="container_login">
          <img src={logoTask} alt='asdf'></img>
@@ -15,9 +18,9 @@ const SignIn = () => {
             <p>Manage your proyect with task manager</p>
             <div id="container_input">
                <input placeholder="Email"/>
-                  <input placeholder="Password"/>
+                  <input type='password' placeholder="Password"/>
                      <button id="button_signin">Sign in</button>
-                     <button id="button_signup">Sign up</button>
+                     <button id="button_signup" onClick={() => navigate('/SignUp')}>Sign up</button>
                   </div>
             </div>
          </div>
