@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { makeAutoObservable, observable, action, computed, toJS } from "mobx";
-import { ToDoInterface } from "../models/ToDoInterface";
+import { ToDoInterface } from "../models/task/ToDoInterface";
 
 class ToDoStore{
 

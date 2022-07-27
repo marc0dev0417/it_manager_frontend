@@ -1,8 +1,6 @@
 import { observable, action, computed, makeAutoObservable } from "mobx";
 import { makePersistable } from "mobx-persist-store";
-import { Auth } from "../../models/authentication/Auth";
-
-import { User } from "../../models/User"
+import { Auth, User } from "../../models/authentication/Authentication";
 
 class UserStore {
     static userStore: UserStore
@@ -20,6 +18,9 @@ class UserStore {
         isLogged: false
     }
 
+    error: boolean = false
+
+
     static getUserStore() {
         if (this.userStore === undefined) {
             this.userStore = new UserStore()
@@ -31,9 +32,12 @@ class UserStore {
         makeAutoObservable(this, {
             userData: observable,
             auth: observable,
+            error: observable,
             userRegister: action,
+            setError: action,
             getUser: computed,
-            getAuth: computed
+            getAuth: computed,
+            getError: computed
         })
         makePersistable(this, {
             name: 'UserStore',
@@ -49,6 +53,7 @@ class UserStore {
             username: username,
             password: password
         }
+        
         try{
         const response = await fetch('http://localhost:8080/signUp', {
             method: 'Post',
@@ -63,21 +68,30 @@ class UserStore {
         if(response.ok){
             const responseContent = await response.json()
             console.log(responseContent)
+            this.setError(false)
         }else{
             console.log("Error in sending the request")
+            this.setError(true)
             throw new Error('Error in register')
+            
         }
     }catch(error){
         console.log(error)
-    }
+        }
     }
 
+    setError(error: boolean){
+        this.error = error
+    }
 
     get getUser(): User {
         return this.userData
     }
     get getAuth(): Auth {
         return this.auth
+    }
+    get getError(): boolean{
+        return this.error
     }
 }
 export default UserStore
