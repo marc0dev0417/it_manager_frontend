@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './login_style/login.css'
 
+import UserStore from '../../viewmodels/auth/UserStore';
+
 //image =>
- import logoTask from '../../util/task_image.svg'
+import logoTask from '../../util/task_image.svg'
+import { observer } from 'mobx-react-lite';
+
+const userStore = UserStore.getUserStore()
+
+console.log(userStore.auth.isLogged)
 
 const SignIn = () => {
 
@@ -26,4 +33,4 @@ const SignIn = () => {
          </div>
          )
 }
-         export default SignIn
+export default observer(SignIn)

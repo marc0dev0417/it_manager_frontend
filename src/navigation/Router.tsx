@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Skeleton from './Skeleton';
+import ViewRender from './ViewRender';
 
 //Views =>
 import PageLogin from '../pages/PageLogin';
@@ -16,11 +16,11 @@ const Router = () =>{
     return(
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Skeleton view={<PageLogin/>}/>}/>
-                <Route path='/SignUp' element={<Skeleton view={<PageSignUp/>}/>}/>
-                <Route path='/Home' element={<Skeleton view={<PageHome/>}/>}/>
-                <Route path='/toDo' element={<Skeleton view={<PageToDo/>}/>}/>
-                <Route path="*" element={<Skeleton view={<h1>404 Not found</h1>}/>}/>
+                <Route path='/' element={<ViewRender view={<PageLogin/>}/>}/>
+                <Route path='/SignUp' element={<ViewRender view={<PageSignUp/>}/>}/>
+                <Route path='/Home' element={<ViewRender view={<PageHome/>}/>}/>
+                <Route path='/toDo' element={<ViewRender view={<PageToDo/>}/>}/>
+                <Route path="*" element={<ViewRender view={<h1>404 Not found</h1>}/>}/>
             </Routes>
         </BrowserRouter>
     )

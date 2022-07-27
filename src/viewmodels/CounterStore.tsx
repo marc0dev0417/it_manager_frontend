@@ -6,6 +6,13 @@ class CounterStore{
 
     valueCount = 0
 
+    static getCounterStore(): CounterStore{
+        if(this.counterStore === undefined){
+            this.counterStore = new CounterStore()
+        }
+        return this.counterStore
+    }
+
     constructor(){
         makeObservable(this, {
             valueCount: observable,
@@ -18,12 +25,7 @@ class CounterStore{
             storage: window.localStorage
         })
     }
-    static getCounterStore(): CounterStore{
-        if(this.counterStore === undefined){
-            this.counterStore = new CounterStore()
-        }
-        return this.counterStore
-    }
+    
 
     incrementCount(){
         this.valueCount++
