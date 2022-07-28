@@ -1,7 +1,6 @@
 type Auth = {
     token: string,
-    token_expired: Date | undefined,
-    isLogged: boolean | null
+    token_expired: string
 }
 
 type User = {

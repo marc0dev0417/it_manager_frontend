@@ -1,5 +1,5 @@
-import { observable, action, computed, makeAutoObservable } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+import { observable, action, computed, makeAutoObservable, toJS } from "mobx";
+import { clearPersistedStore, hydrateStore, makePersistable, stopPersisting } from "mobx-persist-store";
 import { Auth, User } from "../../models/authentication/Authentication";
 
 class UserStore {
@@ -14,10 +14,10 @@ class UserStore {
 
     auth: Auth = {
         token: '',
-        token_expired: undefined,
-        isLogged: false
+        token_expired: ''
     }
 
+    isLogged: boolean = false
     error: boolean = false
 
 
@@ -33,15 +33,21 @@ class UserStore {
             userData: observable,
             auth: observable,
             error: observable,
+            isLogged: observable,
             userRegister: action,
             setError: action,
+            setUserData: action,
+            setAuth: action,
+            setIsLogged: action,
+            removeUserData: action,
             getUser: computed,
             getAuth: computed,
+            getIsLogged: computed,
             getError: computed
         })
         makePersistable(this, {
             name: 'UserStore',
-            properties: ['userData', 'auth'],
+            properties: ['userData', 'auth', 'isLogged'],
             storage: window.localStorage
         })
     }
@@ -67,7 +73,7 @@ class UserStore {
 
         if(response.ok){
             const responseContent = await response.json()
-            console.log(responseContent)
+            this.setUserData(responseContent)
             this.setError(false)
         }else{
             console.log("Error in sending the request")
@@ -80,8 +86,55 @@ class UserStore {
         }
     }
 
+    async userLogin(email: String, password: string){
+        try{
+        const response = await fetch(`http://localhost:8080/login?email=${email}&password=${password}`,{
+            method: 'Get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
+        
+        if(response.status === 200){
+            this.setError(false)
+        }
+
+        if(response.ok){
+            const responseContent = await response.json()
+            //console.log(responseContent)
+            console.log("hola")
+            this.setAuth(JSON.parse(responseContent))
+            this.setIsLogged(true)
+            this.setError(false)
+            
+        }else{
+            this.setError(true)
+            this.setIsLogged(false)
+            throw new Error('Error in Login')
+        }
+    }catch(error){
+    } 
+
+    }
+
+    async removeUserData(){
+        await clearPersistedStore(this)
+    }
+
     setError(error: boolean){
         this.error = error
+    }
+    setUserData(user: User){
+        this.userData = user
+    }
+    setAuth(auth: Auth){
+        this.auth.token = auth.token
+        this.auth.token_expired = auth.token_expired
+    }
+    setIsLogged(isLogged: boolean){
+       this.isLogged = isLogged
     }
 
     get getUser(): User {
@@ -89,6 +142,9 @@ class UserStore {
     }
     get getAuth(): Auth {
         return this.auth
+    }
+    get getIsLogged(): boolean{
+        return this.isLogged
     }
     get getError(): boolean{
         return this.error
