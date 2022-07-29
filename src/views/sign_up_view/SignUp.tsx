@@ -22,10 +22,6 @@ const SignUp = () => {
     const [password, setPassword] = useState<string>('')
 
     async function handleSignUp() {
-        if (email === '' || username === '' || password === '') {
-            alert('Must fill fields')
-            containerPopUp?.classList.remove('show')
-        } else {
             await userStore.userRegister(email, username, password)
             containerPopUp?.classList.add('show')
 
@@ -33,8 +29,19 @@ const SignUp = () => {
                 containerPopUp?.classList.remove('show')
             }, 3000);
         }
-    }
-
+    
+    const getMessagePopUp = () => {
+        let message = ''
+  
+        if(email === '' || username === '' || password === ''){
+          return message = 'Must fill all fields'
+        }
+        if(userStore.getError){
+          return message = 'User already exists'
+        }else{
+          return message = 'User registered'
+        }
+     } 
     return (
         <>
             <div id="container_sign_up">
@@ -52,9 +59,7 @@ const SignUp = () => {
                 </div>
             </div>
             {
-                userStore.getError ? <PopUp message="User already exists" /> : userStore.getError === false
-                    ? <PopUp message="User Registered" /> : !navigator.onLine ?
-                        <PopUp message="Not conection" /> : <></>
+                <PopUp message={getMessagePopUp()}/>
             }
         </>
     )

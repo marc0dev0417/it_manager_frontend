@@ -23,18 +23,33 @@ const SignIn = () => {
    const [password, setPassword] = useState<string>('')
 
   async function handleLogin(){
-      if(email === '' || password === ''){
-         alert('Must fill fields')
-            
-      }else{
          await userStore.userLogin(email, password)
          containerPopUp?.classList.add('show')
 
+         if(userStore.getIsLogged){
+            navigate('/home')
+            window.location.reload()
+         }else{
+            navigate('/')
+         }
+     
          setTimeout(() => {
             containerPopUp?.classList.remove('show')
          }, 3000)
       }
-   }
+
+   const getMessagePopUp = () => {
+      let message = ''
+
+      if(email === '' || password === ''){
+        return message = 'Must fill all fields'
+      }
+      if(userStore.getError){
+        return message = 'User did not logged'
+      }else{
+        return message = 'User logged'
+      }
+   } 
 
    return (
       <>
@@ -52,7 +67,8 @@ const SignIn = () => {
             </div>
             </div>
          {
-            userStore.getError ? <PopUp message='User did not logged'/> : <PopUp message='User logged'/>
+            //userStore.getError ? <PopUp message='User did not logged'/> : <PopUp message='User logged'/>
+            <PopUp message={getMessagePopUp()}/>
          }
       </>
    )

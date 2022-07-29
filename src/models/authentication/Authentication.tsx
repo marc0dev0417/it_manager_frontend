@@ -1,6 +1,6 @@
 type Auth = {
     token: string,
-    token_expired: string
+    expired_date: string
 }
 
 type User = {

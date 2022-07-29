@@ -1,9 +1,10 @@
 import { observable, action, computed, makeAutoObservable, toJS } from "mobx";
-import { clearPersistedStore, hydrateStore, makePersistable, stopPersisting } from "mobx-persist-store";
+import { clearPersistedStore, makePersistable } from "mobx-persist-store";
 import { Auth, User } from "../../models/authentication/Authentication";
 
 class UserStore {
     static userStore: UserStore
+    
 
     userData: User = {
         id: '',
@@ -14,7 +15,7 @@ class UserStore {
 
     auth: Auth = {
         token: '',
-        token_expired: ''
+        expired_date: ''
     }
 
     isLogged: boolean = false
@@ -98,17 +99,18 @@ class UserStore {
         })
         
         if(response.status === 200){
+            const responseContent = await response.json()
+            this.setAuth(responseContent)
             this.setError(false)
+            this.setIsLogged(true)
         }
 
         if(response.ok){
             const responseContent = await response.json()
-            //console.log(responseContent)
-            console.log("hola")
+            console.log(responseContent)
             this.setAuth(JSON.parse(responseContent))
             this.setIsLogged(true)
-            this.setError(false)
-            
+            this.setError(false)    
         }else{
             this.setError(true)
             this.setIsLogged(false)
@@ -131,7 +133,7 @@ class UserStore {
     }
     setAuth(auth: Auth){
         this.auth.token = auth.token
-        this.auth.token_expired = auth.token_expired
+        this.auth.expired_date = auth.expired_date
     }
     setIsLogged(isLogged: boolean){
        this.isLogged = isLogged
