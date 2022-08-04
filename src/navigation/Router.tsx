@@ -17,10 +17,10 @@ const Router = () =>{
     return(
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
+                <Route path='/' element={!userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
                 <Route path='/SignUp' element={<ViewRender view={<PageSignUp/>}/>}/>
-                <Route path='/Home' element={userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
-                <Route path='/toDo' element={userStore.getIsLogged ? <ViewRender view={<PageToDo/>}/> : <ViewRender view={<PageLogin/>}/>}/>
+                <Route path='/Home' element={!userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
+                <Route path='/toDo' element={!userStore.getIsLogged ? <ViewRender view={<PageToDo/>}/> : <ViewRender view={<PageLogin/>}/>}/>
                 <Route path="*" element={<ViewRender view={<h1>404 Not found</h1>}/>}/>
             </Routes>
         </BrowserRouter>
