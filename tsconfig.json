@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "typeRoots": ["node_modules/@Types", "src/types"],
+    "types": ["...", "@types/jest"],
     "experimentalDecorators": true,
     "target": "es5",
     "lib": [
