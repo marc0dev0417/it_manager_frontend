@@ -1,34 +1,58 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
-
+import letterLogo from "../../util/letter_m.svg"
 //Styles =>
 import 'tailwindcss/tailwind.css'
 
-
 import CounterStore from "../../viewmodels/CounterStore";
 import UserStore from "../../viewmodels/auth/UserStore";
+import { JsxElement } from "typescript";
+import InvitedStore from "../../viewmodels/auth/InvitedStore";
+
 
 const userStore = UserStore.getUserStore()
+const invitedStore = InvitedStore.getInvitedStore()
+
+
 
 const MenuNav = () => {
+    console.log(userStore.getIsLogged)
     
-    const navItemList: string[] = ['Home', 'Task Manager', 'About me']
-
-    const counterStore = CounterStore.getCounterStore()
+    //console.log(invitedStore.getInvited.toString())
+    const navItemList: string[] = ['Home', 'Task Manager', 'About Me']
     const navigate = useNavigate()
 
-    function openNav() {
-        document.getElementById("mySidenav")!!.style.width = "250px"
-    }
-    function closeNav() {
-        document.getElementById("mySidenav")!!.style.width = "0";
-    }
     function handleLogOut() {
         userStore.removeUserData()
-        navigate('/')
+        navigate('/login')
         window.location.reload()
+    }
+    function renderButtonNav() {
+
+        if(invitedStore.getInvited){
+           return  <button className='inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out' onClick={() => {navigate('/signUp');invitedStore.setIsInvited(false)}} name='Sign Up'>Sign Up</button>      
+        }
+        if(userStore.getIsLogged){
+           return <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" onClick={handleLogOut}>Sign out</button>
+        }
+       
+        /*
+       if(userStore.getIsInvited){
+        
+        return renderButton = <Button functionHandle={() => { navigate('/signUp')}} name='Sign Up'/>
+       }
+       */
+      
+
+        /*
+        return !userStore.getIsLogged || userStore.isInvited ? <> <button type="button" className="inline-block px-6 py-2.5 mr-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Login</button>
+            <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Sign up</button>
+        </> : <>
+            <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" onClick={handleLogOut}>Sign out</button>
+        </>
+        */
     }
 
     return (
@@ -37,9 +61,7 @@ const MenuNav = () => {
                 <div className="px-6 w-full flex flex-wrap items-center justify-between">
                     <div className="flex items-center">
                         <a className="navbar-brand text-blue-600" href="#!">
-                            <svg className="w-5 h-5 ml-2 lg:ml-0 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                <path fill="currentColor" d="M485.5 0L576 160H474.9L405.7 0h79.8zm-128 0l69.2 160H149.3L218.5 0h139zm-267 0h79.8l-69.2 160H0L90.5 0zM0 192h100.7l123 251.7c1.5 3.1-2.7 5.9-5 3.3L0 192zm148.2 0h279.6l-137 318.2c-1 2.4-4.5 2.4-5.5 0L148.2 192zm204.1 251.7l123-251.7H576L357.3 446.9c-2.3 2.7-6.5-.1-5-3.2z"></path>
-                            </svg>
+                            <img src={letterLogo}></img>
                         </a>
                     </div>
                     <div>
@@ -53,12 +75,12 @@ const MenuNav = () => {
                         </ul>
                     </div>
                     <div className="flex items-center lg:ml-auto">
-                        <button type="button" className="inline-block px-6 py-2.5 mr-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Login</button>
-                        <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Sign up for free</button>
+                        {
+                            renderButtonNav()
+                        }
                     </div>
                 </div>
             </nav>
-           
         </div>
     )
 }

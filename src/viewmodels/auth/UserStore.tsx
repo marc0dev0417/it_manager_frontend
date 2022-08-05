@@ -5,7 +5,6 @@ import { Auth, User } from "../../models/authentication/Authentication";
 class UserStore {
     static userStore: UserStore
     
-
     userData: User = {
         id: '',
         email: '',
@@ -19,8 +18,8 @@ class UserStore {
     }
 
     isLogged: boolean = false
+    isInvited: boolean = false
     error: boolean = false
-
 
     static getUserStore() {
         if (this.userStore === undefined) {
@@ -35,16 +34,19 @@ class UserStore {
             auth: observable,
             error: observable,
             isLogged: observable,
+            isInvited: observable,
             userRegister: action,
             setError: action,
             setUserData: action,
             setAuth: action,
             setIsLogged: action,
+            setInvited: action,
             removeUserData: action,
             getUser: computed,
             getAuth: computed,
             getIsLogged: computed,
-            getError: computed
+            getError: computed,
+            getIsInvited: computed
         })
         makePersistable(this, {
             name: 'UserStore',
@@ -138,6 +140,9 @@ class UserStore {
     setIsLogged(isLogged: boolean){
        this.isLogged = isLogged
     }
+    setInvited(isInvited: boolean){
+        this.isLogged = isInvited
+    }
 
     get getUser(): User {
         return this.userData
@@ -147,6 +152,9 @@ class UserStore {
     }
     get getIsLogged(): boolean{
         return this.isLogged
+    }
+    get getIsInvited(): boolean{
+        return this.isInvited
     }
     get getError(): boolean{
         return this.error

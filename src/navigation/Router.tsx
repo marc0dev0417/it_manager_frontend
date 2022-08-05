@@ -12,16 +12,16 @@ import PageToDo from '../pages/PageToDo'
 
 import UserStore from '../viewmodels/auth/UserStore';
 
-const Router = () =>{
+const Router = () => {
     const userStore = UserStore.getUserStore()
-    return(
+    return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={!userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
-                <Route path='/SignUp' element={<ViewRender view={<PageSignUp/>}/>}/>
-                <Route path='/Home' element={!userStore.getIsLogged ? <ViewRender view={<PageHome/>}/> : <ViewRender view={<PageLogin/>}/>}/>
-                <Route path='/toDo' element={!userStore.getIsLogged ? <ViewRender view={<PageToDo/>}/> : <ViewRender view={<PageLogin/>}/>}/>
-                <Route path="*" element={<ViewRender view={<h1>404 Not found</h1>}/>}/>
+            <Route path='/' element={<ViewRender view={<PageHome />} />} />
+                <Route path='/login' element={<ViewRender view={<PageLogin />} />} />
+                <Route path='/signUp' element={<ViewRender view={<PageSignUp />} />} />
+                <Route path='/toDo' element={<ViewRender view={<PageLogin />} />} />
+                <Route path="*" element={<ViewRender view={<h1>404 Not found</h1>} />} />
             </Routes>
         </BrowserRouter>
     )

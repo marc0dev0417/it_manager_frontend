@@ -23,29 +23,17 @@ const SignUp = () => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-     /*
+     
     async function handleSignUp() {
             await userStore.userRegister(email, username, password)
-            containerPopUp?.classList.add('show')
-
+           
+            /*
             setTimeout(() => {
                 containerPopUp?.classList.remove('show')
             }, 3000);
+            */
         }
-    
-    const getMessagePopUp = () => {
-        let message = ''
-  
-        if(email === '' || username === '' || password === ''){
-          return message = 'Must fill all fields'
-        }
-        if(userStore.getError){
-          return message = 'User already exists'
-        }else{
-          return message = 'User registered'
-        }
-     } 
-     */
+      
     return (
         <>
             <div className='flex flex-row flex-wrap justify-center items-center h-screen'>
@@ -63,8 +51,8 @@ const SignUp = () => {
                         <input className=' form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none' 
                         type='password' placeholder="Password" 
                         onChange={(e) => { setPassword(e.target.value) }} />
-                        <button className='rounded-3xl bg-blue-500 hover:bg-blue-700 text-white' id="button_signin"><p className="p-2">Sign Up</p></button>
-                        <button className='rounded-3xl bg-blue-500 hover:bg-blue-700 text-white' id="button_signup" onClick={() => navigate('/')}><p className="p-2">Back</p></button>
+                        <button className='inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out' onClick={handleSignUp}>Sign Up</button>   
+                        <button className='inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out' onClick={() => {navigate('/login')}}>Back</button> 
                     </div>
                 </div>
             </div>
